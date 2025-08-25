@@ -21,8 +21,6 @@ let ghostImageLocations = [
     { x: 176, y: 121 },
 ];
 
-// Game variables
-// let fps = 30; // No longer needed with requestAnimationFrame
 let pacman;
 let oneBlockSize = 20;
 let score = 0;
@@ -31,7 +29,6 @@ let wallSpaceWidth = oneBlockSize / 1.6;
 let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
 let wallInnerColor = "black";
 
-// we now create the map of the walls,
 // if 1 wall, if 0 not wall
 // 21 columns // 23 rows
 let map = [
@@ -69,12 +66,6 @@ let randomTargetsForGhosts = [
         y: (map.length - 2) * oneBlockSize,
     },
 ];
-
-// for (let i = 0; i < map.length; i++) {
-//     for (let j = 0; j < map[0].length; j++) {
-//         map[i][j] = 2;
-//     }
-// }
 
 let createNewPacman = () => {
     pacman = new Pacman(
@@ -126,10 +117,8 @@ let startPacmanAndGhosts = () => {
 };
 
 let resetGame = () => {
-    // Reset map to initial state (deep copy if needed)
     score = 0;
     lives = 3;
-    // Optionally reset map pellets if they are marked as eaten (3)
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
             if (map[i][j] === 3) map[i][j] = 2;
@@ -161,7 +150,7 @@ let update = () => {
 };
 
 let drawFoods = () => {
-    const pelletSize = oneBlockSize * 0.5; // larger pellet
+    const pelletSize = oneBlockSize * 0.5;
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
             if (map[i][j] == 2) {
