@@ -15,6 +15,34 @@ class Pacman {
     }
 
     moveProcess() {
+        // Tunnel wrap logic for row 11 (index 10), columns 1 <-> 21
+        const tunnelRow = 10; // zero-based index for row 11
+        const leftTunnelCol = 0;
+        const rightTunnelCol = 21;
+        const leftTunnelX = leftTunnelCol * oneBlockSize;
+        const rightTunnelX = rightTunnelCol * oneBlockSize;
+        // DEBUG: Output Pacman's position and direction on tunnel row
+        if (this.getMapY() === tunnelRow) {
+            console.log(`[DEBUG] TunnelRow: x=${this.x}, y=${this.y}, dir=${this.direction}`);
+        }
+        // Check tunnel wrap BEFORE moving Pacman off the map
+        if (this.getMapY() === tunnelRow) {
+            if (
+                this.direction === DIRECTION_LEFT &&
+                this.x <= leftTunnelX
+            ) {
+                // Wrap to just inside right tunnel
+                console.log('[DEBUG] Wrapping left to right');
+                this.x = rightTunnelX;
+            } else if (
+                this.direction === DIRECTION_RIGHT &&
+                this.x >= rightTunnelX
+            ) {
+                // Wrap to just inside left tunnel
+                console.log('[DEBUG] Wrapping right to left');
+                this.x = leftTunnelX;
+            }
+        }
         this.changeDirectionIfPossible();
         this.moveForwards();
         if (this.checkCollisions()) {

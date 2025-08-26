@@ -32,29 +32,29 @@ let wallInnerColor = "black";
 // if 1 wall, if 0 not wall
 // 21 columns // 23 rows
 let map = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
-    [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-    [1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2],
-    [1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-    [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1],
-    [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1],
-    [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-    [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //row 1
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1], //row 2
+    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1], //row 3
+    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1], //row 4
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1], //row 5
+    [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1], //row 6
+    [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1], //row 7
+    [1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 2, 1, 1, 1, 1, 1], //row 8
+    [0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0], //row 9
+    [1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1], //row 10
+    [2, 2, 2, 2, 2, 2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2, 2, 2, 2, 2, 2], //row 11
+    [1, 1, 1, 1, 1, 2, 1, 0, 1, 0, 0, 0, 1, 0, 1, 2, 1, 1, 1, 1, 1], //row 12
+    [0, 0, 0, 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 0, 1, 2, 1, 0, 0, 0, 0], //row 13
+    [0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0], //row 14
+    [1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1], //row 15
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1], //row 16
+    [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1], //row 17
+    [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1], //row 18
+    [1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1], //row 19
+    [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1], //row 20
+    [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1], //row 21
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1], //row 22
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //row 23
 ];
 
 let randomTargetsForGhosts = [
@@ -81,6 +81,7 @@ let lastFrameTime = 0;
 const targetFPS = 30;
 const frameDuration = 1000 / targetFPS;
 let isPaused = false;
+let isWinner = false;
 
 let gameLoop = (timestamp) => {
     if (isPaused) {
@@ -98,6 +99,25 @@ let gameLoop = (timestamp) => {
         canvasContext.textAlign = "start";
         canvasContext.restore();
         requestAnimationFrame(gameLoop);
+        return;
+    }
+    if (isWinner) {
+        draw();
+        // Draw winner overlay
+        canvasContext.save();
+        canvasContext.globalAlpha = 0.85;
+        canvasContext.fillStyle = "black";
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.globalAlpha = 1;
+        canvasContext.font = "40px Emulogic";
+        canvasContext.fillStyle = "#FFD700";
+        canvasContext.textAlign = "center";
+        canvasContext.fillText("WINNER!", canvas.width / 2, canvas.height / 2 - 20);
+        canvasContext.font = "20px Emulogic";
+        canvasContext.fillStyle = "white";
+        canvasContext.fillText("Click to Restart", canvas.width / 2, canvas.height / 2 + 30);
+        canvasContext.textAlign = "start";
+        canvasContext.restore();
         return;
     }
     if (!lastFrameTime) lastFrameTime = timestamp;
@@ -141,16 +161,30 @@ let onGhostCollision = () => {
 };
 
 let update = () => {
+    if (isWinner) return;
+    // Debug: Output Pacman's state before and after moveProcess
+    console.log(`[GAME DEBUG] BEFORE moveProcess: x=${pacman.x}, y=${pacman.y}, dir=${pacman.direction}`);
     pacman.moveProcess();
+    console.log(`[GAME DEBUG] AFTER moveProcess: x=${pacman.x}, y=${pacman.y}, dir=${pacman.direction}`);
     pacman.eat();
     updateGhosts();
     if (pacman.checkGhostCollision(ghosts)) {
         onGhostCollision();
     }
+    // Check for win
+    let pelletsLeft = 0;
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[0].length; j++) {
+            if (map[i][j] === 2) pelletsLeft++;
+        }
+    }
+    if (pelletsLeft === 0) {
+        isWinner = true;
+    }
 };
 
 let drawFoods = () => {
-    const pelletSize = oneBlockSize * 0.5;
+    const pelletSize = oneBlockSize * 0.5   ;
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
             if (map[i][j] == 2) {
@@ -284,6 +318,16 @@ let createGhosts = () => {
 createNewPacman();
 createGhosts();
 gameLoop(performance.now());
+
+// Restart game on click if won
+canvas.addEventListener("click", function winnerClickHandler(e) {
+    if (isWinner) {
+        isWinner = false;
+        resetGame();
+        lastFrameTime = 0;
+        gameLoop(performance.now());
+    }
+});
 
 window.addEventListener("keydown", (event) => {
     let k = event.keyCode;
