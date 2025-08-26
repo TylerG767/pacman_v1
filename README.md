@@ -3,6 +3,8 @@ A browser-based Pacman game implemented in JavaScript with smooth animation, AI 
 
 To Do:
 - Add a main menu to play the game
+- Ghost staggering when they are intending to overlap
+- Change game over screen from reset to "Game Over" overlay with click to restart prompt
 - Change map logic to something that will allow multiple maps
 - Add Levels with map variety
 
@@ -16,7 +18,7 @@ Pacman 1.0.1 - Initial Release
 - No winner screen or restart prompt.
 - Press "Escape" to pause the game
 
-Pacman 1.0.2 - Tunnel, Win Condition, Pathin Fixes
+Pacman Patch 1.0.2 - Tunnel, Win Condition, Pathin Fixes
 - Tunnel Wrap Logic:
     - Pacman now wraps correctly between the left and right tunnels on row 11 (columns 0 and 21), matching classic Pacman behavior.
 - Game Win Condition:
@@ -28,3 +30,8 @@ Pacman 1.0.2 - Tunnel, Win Condition, Pathin Fixes
 - Bug Fixes & Improvements:
     - Prevented unintended wrapping or wall placement during tunnel transitions.
     - Game loop and UI improvements for a smoother experience.
+
+Pacman Patch 1.0.3 - Ghost Pathing Fixes
+- Removed redundant notes from code
+- Adjusted ghost pathing logic to prevent unintended wrapping or wall placement during tunnel transitions
+- Added stuck counter to ghosts to prevent them from getting stuck in walls

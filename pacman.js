@@ -25,7 +25,7 @@ class Pacman {
         if (this.getMapY() === tunnelRow) {
             console.log(`[DEBUG] TunnelRow: x=${this.x}, y=${this.y}, dir=${this.direction}`);
         }
-        // Check tunnel wrap BEFORE moving Pacman off the map
+        // Check tunnel wrap BEFORE moving Pacman off the map - Is there a better way to do this?
         if (this.getMapY() === tunnelRow) {
             if (
                 this.direction === DIRECTION_LEFT &&
@@ -68,16 +68,16 @@ class Pacman {
 
     moveBackwards() {
         switch (this.direction) {
-            case DIRECTION_RIGHT: // Right
+            case DIRECTION_RIGHT:
                 this.x -= this.speed;
                 break;
-            case DIRECTION_UP: // Up
+            case DIRECTION_UP:
                 this.y += this.speed;
                 break;
-            case DIRECTION_LEFT: // Left
+            case DIRECTION_LEFT:
                 this.x += this.speed;
                 break;
-            case DIRECTION_BOTTOM: // Bottom
+            case DIRECTION_BOTTOM:
                 this.y -= this.speed;
                 break;
         }
@@ -85,16 +85,16 @@ class Pacman {
 
     moveForwards() {
         switch (this.direction) {
-            case DIRECTION_RIGHT: // Right
+            case DIRECTION_RIGHT:
                 this.x += this.speed;
                 break;
-            case DIRECTION_UP: // Up
+            case DIRECTION_UP:
                 this.y -= this.speed;
                 break;
-            case DIRECTION_LEFT: // Left
+            case DIRECTION_LEFT:
                 this.x -= this.speed;
                 break;
-            case DIRECTION_BOTTOM: // Bottom
+            case DIRECTION_BOTTOM:
                 this.y += this.speed;
                 break;
         }

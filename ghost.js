@@ -24,6 +24,7 @@ class Ghost {
         this.range = range;
         this.randomTargetIndex = parseInt(Math.random() * 4);
         this.target = randomTargetsForGhosts[this.randomTargetIndex];
+        this.stuckCounter = 0; // Track if ghost is stuck
         setInterval(() => {
             this.changeRandomDirection();
         }, 10000);
@@ -47,17 +48,76 @@ class Ghost {
         this.randomTargetIndex = this.randomTargetIndex % 4;
     }
 
-    moveProcess() {
+    moveProcess(checkGhostOverlap = true) {
         if (this.isInRange()) {
             this.target = pacman;
         } else {
             this.target = randomTargetsForGhosts[this.randomTargetIndex];
         }
+        let prevDirection = this.direction;
         this.changeDirectionIfPossible();
+
+        // Only check for ghost overlap if requested (default true)
+        const isTileOccupiedByOtherGhost = (x, y) => {
+            if (!checkGhostOverlap) return false;
+            for (let g of ghosts) {
+                if (g !== this && g.getMapX() === x && g.getMapY() === y) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        // Try to move in the current direction
         this.moveForwards();
-        if (this.checkCollisions()) {
+        let tileX = this.getMapX(), tileY = this.getMapY();
+        if (this.checkCollisions() || isTileOccupiedByOtherGhost(tileX, tileY)) {
             this.moveBackwards();
-            return;
+            // Try all other directions except reverse
+            const directions = [DIRECTION_RIGHT, DIRECTION_UP, DIRECTION_LEFT, DIRECTION_BOTTOM];
+            const reverseDir = (d) => {
+                switch (d) {
+                    case DIRECTION_RIGHT: return DIRECTION_LEFT;
+                    case DIRECTION_LEFT: return DIRECTION_RIGHT;
+                    case DIRECTION_UP: return DIRECTION_BOTTOM;
+                    case DIRECTION_BOTTOM: return DIRECTION_UP;
+                }
+            };
+            let moved = false;
+            for (let d of directions) {
+                if (d === prevDirection || d === reverseDir(prevDirection)) continue;
+                this.direction = d;
+                this.moveForwards();
+                let altX = this.getMapX(), altY = this.getMapY();
+                if (!this.checkCollisions() && !isTileOccupiedByOtherGhost(altX, altY)) {
+                    moved = true;
+                    break;
+                }
+                this.moveBackwards();
+            }
+            if (!moved) {
+                // If all directions blocked or occupied, increment stuck counter
+                this.stuckCounter = (this.stuckCounter || 0) + 1;
+                // If stuck more than 1 frame, ignore other ghosts and just avoid walls
+                if (this.stuckCounter > 1) {
+                    for (let d of directions) {
+                        if (d === prevDirection || d === reverseDir(prevDirection)) continue;
+                        this.direction = d;
+                        this.moveForwards();
+                        if (!this.checkCollisions()) {
+                            this.stuckCounter = 0;
+                            return;
+                        }
+                        this.moveBackwards();
+                    }
+                    // Still stuck, stay in place
+                    this.direction = prevDirection;
+                }
+            } else {
+                this.stuckCounter = 0;
+            }
+        } else {
+            this.stuckCounter = 0;
         }
     }
 
@@ -264,44 +324,51 @@ class Ghost {
             this.height
         );
         canvasContext.restore();
-        canvasContext.beginPath();
-        canvasContext.strokeStyle = "red";
-        canvasContext.arc(
-            this.x + oneBlockSize / 2,
-            this.y + oneBlockSize / 2,
-            this.range * oneBlockSize,
-            0,
-            2 * Math.PI
-        );
-        canvasContext.stroke();
     }
 }
 
 let updateGhosts = () => {
-    // Track intended next positions
+    // Track intended next positions for this frame
     let intendedPositions = new Set();
     for (let i = 0; i < ghosts.length; i++) {
         let ghost = ghosts[i];
         let origDirection = ghost.direction;
         let origX = ghost.x;
         let origY = ghost.y;
-        ghost.moveProcess();
+        let moved = false;
+        // Try current direction first
+        ghost.moveProcess(false); // false = don't check for ghost overlap inside moveProcess
         let nextTile = ghost.getMapX() + ',' + ghost.getMapY();
-        // Only apply anti-stacking if ghosts have left the starting area (row > 11)
         if (ghost.getMapY() > 11 && intendedPositions.has(nextTile)) {
-            // Pick a random direction if stacking
-            let possibleDirs = [1, 2, 3, 4].filter(d => d !== origDirection);
-            ghost.direction = possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
-            ghost.moveForwards();
-            // If still stacking, just revert
-            let altTile = ghost.getMapX() + ',' + ghost.getMapY();
-            if (intendedPositions.has(altTile)) {
+            ghost.x = origX;
+            ghost.y = origY;
+            ghost.direction = origDirection;
+            // Try all other directions except reverse
+            const directions = [DIRECTION_RIGHT, DIRECTION_UP, DIRECTION_LEFT, DIRECTION_BOTTOM];
+            const reverseDir = (d) => {
+                switch (d) {
+                    case DIRECTION_RIGHT: return DIRECTION_LEFT;
+                    case DIRECTION_LEFT: return DIRECTION_RIGHT;
+                    case DIRECTION_UP: return DIRECTION_BOTTOM;
+                    case DIRECTION_BOTTOM: return DIRECTION_UP;
+                }
+            };
+            for (let d of directions) {
+                if (d === origDirection || d === reverseDir(origDirection)) continue;
+                ghost.direction = d;
+                ghost.moveForwards();
+                let altTile = ghost.getMapX() + ',' + ghost.getMapY();
+                if (!ghost.checkCollisions() && !intendedPositions.has(altTile)) {
+                    intendedPositions.add(altTile);
+                    moved = true;
+                    break;
+                }
                 ghost.x = origX;
                 ghost.y = origY;
+            }
+            if (!moved) {
                 ghost.direction = origDirection;
-            } else {
-                intendedPositions.add(altTile);
-                continue;
+                intendedPositions.add(origX + ',' + origY); // Stay in place
             }
         } else {
             intendedPositions.add(nextTile);
